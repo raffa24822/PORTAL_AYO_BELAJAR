@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: portal-belajar-kelas-10-revisi
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    disk:
+      name: portal-belajar-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATA_DIR
+        value: /var/data
+      - key: ASTS_SERVER_KEY
+        sync: false
+      - key: TEACHER_USERNAME
+        sync: false
+      - key: TEACHER_PASSWORD
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini

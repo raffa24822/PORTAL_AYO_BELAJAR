@@ -1,0 +1,16 @@
+{
+  "name": "portal-belajar-kelas-10-revisi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portal Belajar Kelas 10 dengan penyimpanan server dan pembuatan soal AI",
+  "main": "PORTAL_BELAJAR_KELAS_10_REVISI_SERVER.js",
+  "scripts": {
+    "start": "node PORTAL_BELAJAR_KELAS_10_REVISI_SERVER.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
