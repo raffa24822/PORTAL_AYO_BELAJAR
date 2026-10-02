@@ -7,7 +7,7 @@ app.disable('x-powered-by');
 app.use((req,res,next)=>{res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Frame-Options','DENY');res.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=()');next();});
 app.use(express.json({ limit: '12mb', strict: true }));
 const PORT = Number(process.env.PORT || 3000);
-const KEY = String(process.env.ASTS_SERVER_KEY || '');
+const KEY = String(process.env.PORTAL_AYO_BELAJAR_KEY || '');
 const TEACHER_USERNAME = String(process.env.TEACHER_USERNAME || '');
 const TEACHER_PASSWORD = String(process.env.TEACHER_PASSWORD || '');
 const teacherSessions = new Map();
@@ -35,7 +35,7 @@ function auth(req, res, next) {
   const teacherOnly = req.method !== 'GET' && ['subjects','tasks','materials'].includes(name);
   const protectedEndpoint = req.path.startsWith('/api/generate-questions') || req.path.includes('/reset-');
   if ((teacherOnly || protectedEndpoint) && !session) return sendError(res, 403, 'Perlu login guru untuk melakukan tindakan ini.');
-  if (!KEY) return sendError(res, 503, 'Server belum dikonfigurasi. Atur ASTS_SERVER_KEY di Environment hosting.');
+  if (!KEY) return sendError(res, 503, 'Server belum dikonfigurasi. Atur PORTAL_AYO_BELAJAR_KEY di Environment hosting.');
   if (!req.get('x-asts-key') || req.get('x-asts-key') !== KEY) return sendError(res, 401, 'Autentikasi server gagal.');
   next();
 }
@@ -214,6 +214,6 @@ app.use((error, _req, res, _next) => {
 });
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`PORTAL BELAJAR KELAS 10 berjalan pada port ${PORT}; data disimpan di ${DB_FILE}`);
-  if (!KEY) console.error('PERINGATAN: ASTS_SERVER_KEY belum diatur. API sinkronisasi tidak akan berfungsi.');
+  if (!KEY) console.error('PERINGATAN: PORTAL_AYO_BELAJAR_KEY belum diatur. API sinkronisasi tidak akan berfungsi.');
   if (!TEACHER_USERNAME || !TEACHER_PASSWORD) console.error('PERINGATAN: Atur TEACHER_USERNAME dan TEACHER_PASSWORD di Environment hosting.');
 });
